@@ -1,9 +1,11 @@
 import React,{useState} from "react";
 
 import Barcode from "react-barcode";
-import {Grid,AppBar,Toolbar,Typography,Container,TextField,MuiThemeProvider} from "@material-ui/core";
+import {Grid,AppBar,Toolbar,Typography,Container,TextField,MuiThemeProvider,Button} from "@material-ui/core";
 import {} from "@material-ui/icons";
 import { createMuiTheme } from "@material-ui/core/styles";
+import html2canvas from 'html2canvas';
+// import { useScreenshot } from 'use-react-screenshot'
 const theme = createMuiTheme({
     palette: {
       primary: {
@@ -22,6 +24,10 @@ const theme = createMuiTheme({
   });
 export default function Index(props){
     const [state,setState]=useState("Example");
+    const [res,setResponse]=useState(10);
+    // const [image, takeScreenshot] = useScreenshot();
+    // const ref = createRef(null);
+  // const getImage = () => takeScreenshot(ref.current)
     return (
         <>
         <MuiThemeProvider theme={theme}>
@@ -42,7 +48,21 @@ export default function Index(props){
         </Grid>
         </Grid>
         <Container align="center" style={{marginTop:"2%"}}>
-        <Barcode value={state}></Barcode>
+        <div id={"barcode"} style={{backgroundColor:"transparent"}}>
+        <Barcode displayValue={false} width={1} height={30} value={state} ></Barcode>
+        </div>
+        <a href={""} id={"a"} download ={"barcode.png"}></a>
+        <div>
+        <Button variant="contained" color="primary" onClick={async (e)=>{
+          // getImage();
+          var can = await html2canvas(document.getElementById("barcode"));
+          console.log(can.toDataURL());
+          document.getElementById('a').href=can.toDataURL();
+          document.getElementById('a').click();
+
+        }}>Download Barcode</Button>
+        </div>
+        
         </Container>
         </MuiThemeProvider>
         </>
