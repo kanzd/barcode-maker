@@ -11,7 +11,7 @@ function App() {
         <Route exact path = "/">
           <Home></Home>
         </Route>
-      </BrowserRouter>S
+      </BrowserRouter>
     </>
   );
 }
