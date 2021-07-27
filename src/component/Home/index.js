@@ -49,7 +49,7 @@ export default function Index(props){
         </Grid>
         <Container align="center" style={{marginTop:"2%"}}>
         <div id={"barcode"} style={{backgroundColor:"transparent"}}>
-        <Barcode displayValue={false} width={0.3} height={50} value={state} ></Barcode>
+        <Barcode displayValue={false} width={1} height={30} value={state} ></Barcode>
         </div>
         <a href={""} id={"a"} download ={"barcode.png"}></a>
         <div>
