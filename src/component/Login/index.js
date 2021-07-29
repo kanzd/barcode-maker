@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import {Grid,AppBar,Toolbar,Typography,Container,TextField,MuiThemeProvider,Button} from "@material-ui/core";
 import {} from "@material-ui/icons";
 import { createMuiTheme } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 const theme = createMuiTheme({
     palette: {
       primary: {
@@ -19,6 +20,9 @@ const theme = createMuiTheme({
     },
   });
 export default function Login(props){
+    const history = useHistory();
+    if (window.localStorage.getItem("user")!=null)
+    history.push("/home")
     return (
         <>
         <MuiThemeProvider theme={theme}>
@@ -43,7 +47,9 @@ export default function Login(props){
         </Grid>
         </Grid>
         <Grid container justifyContent="center" style={{marginTop:"1%"}}>
-        <Button variant="contained" color="primary">Login</Button>
+        <Button variant="contained" color="primary" onClick={(e)=>{
+            window.localStorage.setItem("user");
+        }}>Login</Button>
         </Grid>
 </MuiThemeProvider>
         </>

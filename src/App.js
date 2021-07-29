@@ -11,7 +11,7 @@ function App() {
         <Route exact path = "/">
           <Home></Home>
         </Route>
-        <Route exact path = "/login">
+        <Route exact path = "/home">
           <Login></Login>
         </Route>
       </BrowserRouter>

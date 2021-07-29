@@ -5,6 +5,7 @@ import {Grid,AppBar,Toolbar,Typography,Container,TextField,MuiThemeProvider,Butt
 import {} from "@material-ui/icons";
 import { createMuiTheme } from "@material-ui/core/styles";
 import html2canvas from 'html2canvas';
+import { useHistory } from "react-router-dom";
 // import { useScreenshot } from 'use-react-screenshot'
 const theme = createMuiTheme({
     palette: {
@@ -25,9 +26,12 @@ const theme = createMuiTheme({
 export default function Index(props){
     const [state,setState]=useState("Example");
     const [res,setResponse]=useState(10);
+    const history = useHistory();
     // const [image, takeScreenshot] = useScreenshot();
     // const ref = createRef(null);
   // const getImage = () => takeScreenshot(ref.current)
+  if (window.localStorage.getItem("user")==null)
+  history.push("/")
     return (
         <>
         <MuiThemeProvider theme={theme}>
