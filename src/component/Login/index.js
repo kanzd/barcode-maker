@@ -3,6 +3,9 @@ import {Grid,AppBar,Toolbar,Typography,Container,TextField,MuiThemeProvider,Butt
 import {} from "@material-ui/icons";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 const theme = createMuiTheme({
     palette: {
       primary: {
@@ -21,11 +24,18 @@ const theme = createMuiTheme({
   });
 export default function Login(props){
     const history = useHistory();
-    if (window.localStorage.getItem("user")!=null)
-    history.push("/home")
+    const [username,setUsername]=useState("");
+    const [password,setPassword]=useState("");
+    if (window.localStorage.getItem("user")!=null){
+        history.push("/home")
+    }
+    
+  
     return (
         <>
+
         <MuiThemeProvider theme={theme}>
+        <ToastContainer />
         <AppBar position="sticky">
             <Toolbar>
             <Container align="center">
@@ -40,15 +50,40 @@ export default function Login(props){
         </Container>
         <Grid container justifyContent="center" style={{marginTop:"5%"}} spacing={2}>
         <Grid item xs={2}>
-            <TextField label="Username" fullWidth variant="outlined"></TextField>
+            <TextField label="Username" fullWidth variant="outlined" onChange={(e)=>{
+                setUsername(e.target.value);
+            }}></TextField>
         </Grid>
         <Grid item xs={2}>
-            <TextField label="password" fullWidth variant="outlined"></TextField>
+            <TextField label="password" fullWidth variant="outlined" type="password" onChange={(e)=>{
+                setPassword(e.target.value);
+            }}></TextField>
         </Grid>
         </Grid>
         <Grid container justifyContent="center" style={{marginTop:"1%"}}>
-        <Button variant="contained" color="primary" onClick={(e)=>{
-            window.localStorage.setItem("user");
+        <Button variant="contained" color="primary" onClick={async (e)=>{
+           var response=await axios.post("https://kanishk121.pythonanywhere.com/apis/login/",{username:username,password:password});
+           var data = response.data;
+           console.log(response.data);
+           if (data["response_code"]=="1")
+           {
+
+            window.localStorage.setItem("user",data["username"]);
+            history.push("/home");
+           }
+        else{
+            toast.error('Wrong Credential', {
+position: "top-right",
+autoClose: 5000,
+hideProgressBar: false,
+closeOnClick: true,
+pauseOnHover: true,
+draggable: true,
+progress: undefined,
+});
+           
+        }
+            
         }}>Login</Button>
         </Grid>
 </MuiThemeProvider>

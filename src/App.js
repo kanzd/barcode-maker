@@ -8,10 +8,10 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Route exact path = "/">
+        <Route exact path = "/home">
           <Home></Home>
         </Route>
-        <Route exact path = "/home">
+        <Route exact path = "/">
           <Login></Login>
         </Route>
       </BrowserRouter>

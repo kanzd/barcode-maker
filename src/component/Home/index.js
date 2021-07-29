@@ -6,6 +6,7 @@ import {} from "@material-ui/icons";
 import { createMuiTheme } from "@material-ui/core/styles";
 import html2canvas from 'html2canvas';
 import { useHistory } from "react-router-dom";
+import axios from 'axios';
 // import { useScreenshot } from 'use-react-screenshot'
 const theme = createMuiTheme({
     palette: {
@@ -24,14 +25,31 @@ const theme = createMuiTheme({
     },
   });
 export default function Index(props){
+    const [api,setApi]=useState(false);
     const [state,setState]=useState("Example");
     const [res,setResponse]=useState(10);
     const history = useHistory();
     // const [image, takeScreenshot] = useScreenshot();
     // const ref = createRef(null);
   // const getImage = () => takeScreenshot(ref.current)
-  if (window.localStorage.getItem("user")==null)
-  history.push("/")
+  (()=>{
+    if (window.localStorage.getItem("user")==null)
+  
+  history.push("/");  
+  })();
+   
+  
+  (async ()=>{
+    if (!api){
+    var response=await axios.post("https://kanishk121.pythonanywhere.com/apis/loginvalidate/",{username:window.localStorage.getItem("user")});
+           var data = response.data;
+           if (data["response_code"]=="0")
+           {
+             history.push("/");
+           }
+           setApi(true);
+  }})();
+  
     return (
         <>
         <MuiThemeProvider theme={theme}>
@@ -66,6 +84,13 @@ export default function Index(props){
 
         }}>Download Barcode</Button>
         </div>
+        
+        <Button style={{marginTop:"3%"}} variant="contained" color="primary" onClick={ (e)=>{
+          // getImage();
+         window.localStorage.removeItem("user");
+         setState("out");
+        }}>Log Out</Button>
+        
         
         </Container>
         </MuiThemeProvider>
