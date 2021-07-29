@@ -5,6 +5,7 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import {HashLoader} from "react-spinners";
   import 'react-toastify/dist/ReactToastify.css';
 const theme = createMuiTheme({
     palette: {
@@ -26,6 +27,7 @@ export default function Login(props){
     const history = useHistory();
     const [username,setUsername]=useState("");
     const [password,setPassword]=useState("");
+    const [loader,setLoader]=useState(false);
     if (window.localStorage.getItem("user")!=null){
         history.push("/home")
     }
@@ -40,6 +42,7 @@ export default function Login(props){
             <Toolbar>
             <Container align="center">
                 <Typography style={{fontSize:"20px",fontWeight:"bolder"}}> BarCode Maker </Typography>
+                
             </Container>
             </Toolbar>
         </AppBar>
@@ -47,6 +50,7 @@ export default function Login(props){
             <Typography variant="h3" style={{fontWeight:"bolder",color:"#1bcf1b"}}>
             Login
             </Typography>
+            
         </Container>
         <Grid container justifyContent="center" style={{marginTop:"5%"}} spacing={2}>
         <Grid item xs={2}>
@@ -62,7 +66,9 @@ export default function Login(props){
         </Grid>
         <Grid container justifyContent="center" style={{marginTop:"1%"}}>
         <Button variant="contained" color="primary" onClick={async (e)=>{
+            setLoader(true);
            var response=await axios.post("https://kanishk121.pythonanywhere.com/apis/login/",{username:username,password:password});
+           setLoader(false);
            var data = response.data;
            console.log(response.data);
            if (data["response_code"]=="1")
@@ -86,6 +92,10 @@ progress: undefined,
             
         }}>Login</Button>
         </Grid>
+        <Container align ="center" style={{marginTop:"3%"}}>
+        <HashLoader loading={loader} color={"#1bcf1b"}  size={50}></HashLoader>
+        </Container>
+       
 </MuiThemeProvider>
         </>
     );
