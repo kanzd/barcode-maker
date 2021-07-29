@@ -53,12 +53,12 @@ export default function Login(props){
             
         </Container>
         <Grid container justifyContent="center" style={{marginTop:"5%"}} spacing={2}>
-        <Grid item xs={2}>
+        <Grid item md={3} sm={5} xs={11}>
             <TextField label="Username" fullWidth variant="outlined" onChange={(e)=>{
                 setUsername(e.target.value);
             }}></TextField>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item md={3} sm={5} xs={11}>
             <TextField label="password" fullWidth variant="outlined" type="password" onChange={(e)=>{
                 setPassword(e.target.value);
             }}></TextField>

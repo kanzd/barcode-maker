@@ -73,13 +73,14 @@ export default function Index(props){
         <div id={"barcode"} style={{backgroundColor:"transparent"}}>
         <Barcode displayValue={false} width={1} height={30} value={state} ></Barcode>
         </div>
-        <a href={""} id={"a"} download ={"barcode.png"}></a>
+        <a href={""} id={"a"} download ={"barcode"}></a>
         <div>
         <Button variant="contained" color="primary" onClick={async (e)=>{
           // getImage();
           var can = await html2canvas(document.getElementById("barcode"));
           console.log(can.toDataURL());
-          document.getElementById('a').href=can.toDataURL();
+          document.getElementById('a').href=can.toDataURL("image/jpeg");
+          // document.getElementById('a').download ="barcode";
           document.getElementById('a').click();
 
         }}>Download Barcode</Button>
