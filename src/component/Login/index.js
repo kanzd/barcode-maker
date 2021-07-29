@@ -29,8 +29,12 @@ export default function Login(props){
             </Container>
             </Toolbar>
         </AppBar>
-        <Container ></Container>
-        <Grid container justifyContent="center" style={{marginTop:"10%"}} spacing={2}>
+        <Container align="center" style={{"marginTop":"5%"}}>
+            <Typography variant="h3" style={{fontWeight:"bolder",color:"#1bcf1b"}}>
+            BARCODE
+            </Typography>
+        </Container>
+        <Grid container justifyContent="center" style={{marginTop:"5%"}} spacing={2}>
         <Grid item xs={2}>
             <TextField label="Username" fullWidth variant="outlined"></TextField>
         </Grid>
